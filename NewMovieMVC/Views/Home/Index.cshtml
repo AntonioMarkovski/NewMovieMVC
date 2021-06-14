@@ -1,0 +1,48 @@
+﻿@model IEnumerable<MovieViewModel>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (var movie in Model)
+        {
+            <div class="card p-1 m-1">
+                <div class="card-body">
+                    <label>ID: @Html.DisplayFor(model => movie.id)</label>
+                    <div class="card-title">
+                        <h5>Name: @Html.DisplayFor(model => movie.Title)</h5>
+                        <a asp-action="Edit" asp-route-id="@movie.id" class="btn btn-block btn-primary">Edit</a>
+                        <a asp-action="Details" asp-route-id="@movie.id" class="btn btn-block btn-info">Details</a>
+                        <a asp-action="Delete" asp-route-id="@movie.id" class="btn btn-block btn-danger">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "https://localhost:7001/api/movie/filmovi",
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function () {
+                    //alert("Error");
+                    console.log("Error");
+                }
+            })
+        }
+    </script>
+}
